@@ -1,6 +1,9 @@
 FROM php:5.4.43-apache
 # Install modules
 RUN apt-get update && apt-get install -y \
+	vim \
+	wget \
+	curl \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libmcrypt-dev \
@@ -9,7 +12,8 @@ RUN apt-get update && apt-get install -y \
 	graphicsmagick-imagemagick-compat \
 	mysql-client \
 	libmemcached-dev \
-    && docker-php-ext-install iconv mcrypt mbstring \
+	libxml2-dev \
+    && docker-php-ext-install iconv mcrypt mbstring soap \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install gd mysql pdo_mysql mysqli \
     && pecl install memcache \
