@@ -1,4 +1,4 @@
-FROM php:5.4.43-apache
+FROM php:5.5.28-apache
 # Install modules
 RUN apt-get update && apt-get install -y \
 	vim \
