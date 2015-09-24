@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y \
 	mysql-client \
 	libmemcached-dev \
 	libxml2-dev \
-    && docker-php-ext-install iconv mcrypt mbstring soap \
+    && docker-php-ext-install iconv mcrypt mbstring soap zip\
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install gd mysql pdo_mysql mysqli \
     && pecl install memcache \
