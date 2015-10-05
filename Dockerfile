@@ -28,4 +28,5 @@ ADD php.ini /usr/local/etc/php/php.ini
 ADD run.sh /usr/local/bin/run.sh
 RUN chmod +x /usr/local/bin/run.sh
 EXPOSE 80
+EXPOSE 443
 CMD ["/usr/local/bin/run.sh"]
