@@ -13,14 +13,16 @@ RUN apt-get update && apt-get install -y \
 	mysql-client \
 	libmemcached-dev \
 	libxml2-dev \
+	libldap2-dev \
     && docker-php-ext-install iconv mcrypt mbstring soap \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-    && docker-php-ext-install gd mysql pdo_mysql mysqli zip \
+    && docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu \
+    && docker-php-ext-install gd mysql pdo_mysql mysqli zip ldap \
     && pecl install memcache \
     && pecl install memcached \
-    && pecl install xdebug
+    && pecl install xdebug \
+    && apt-get clean
 
-RUN apt-get clean
 RUN adduser www
 ADD apache2.conf /etc/apache2/apache2.conf
 RUN a2enmod rewrite
