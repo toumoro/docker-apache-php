@@ -29,6 +29,7 @@ RUN a2enmod rewrite
 RUN a2enmod ssl
 ADD php.ini /usr/local/etc/php/php.ini
 ADD run.sh /usr/local/bin/run.sh
+ADD ssl /etc/httpd/ssl
 RUN chmod +x /usr/local/bin/run.sh
 EXPOSE 80
 EXPOSE 443
