@@ -20,6 +20,7 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install gd mysql pdo_mysql mysqli zip ldap \
     && pecl install memcache \
     && pecl install memcached \
+    && pecl install zendopcache \
     && pecl install xdebug \
     && apt-get clean
 
