@@ -1,5 +1,12 @@
 #!/bin/bash
 
-userdel -r www
-adduser www --disabled-password --gecos ",,," -u $HOST_UID
+if [ ! -z "$HOST_UID" ];
+then
+  usermod -u $HOST_UID www-data
+  groupmod -g $HOST_UID www-data
+else
+  usermod -u 1000 www-data
+  groupmod -g 1000 www-data
+fi
+
 apache2-foreground

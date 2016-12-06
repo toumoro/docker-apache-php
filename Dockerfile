@@ -22,10 +22,9 @@ RUN apt-get update && apt-get install -y \
     && pecl install memcache \
     && pecl install memcached \
     && pecl install zendopcache \
-    && pecl install xdebug \
+    && pecl install xdebug-2.4.0 \
     && apt-get clean
 
-RUN adduser www
 ADD apache2.conf /etc/apache2/apache2.conf
 RUN a2enmod rewrite
 RUN a2enmod ssl
