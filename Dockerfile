@@ -15,6 +15,13 @@ RUN apt-get update && apt-get install -y \
 	libxml2-dev \
 	libldap2-dev \
 	libapache2-mod-rpaf \
+        freetds-bin \
+        freetds-common \ 
+        freetds-dev \
+    && ln -s /usr/lib/x86_64-linux-gnu/libsybdb.so /usr/lib/libsybdb.so \
+    && ln -s /usr/lib/x86_64-linux-gnu/libsybdb.a /usr/lib/libsybdb.a \
+    && docker-php-ext-configure mssql \
+    && docker-php-ext-install mssql \
     && docker-php-ext-install iconv mcrypt mbstring soap \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu \
