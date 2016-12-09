@@ -24,7 +24,6 @@ RUN apt-get update && apt-get install -y \
     && pecl install xdebug \
     && apt-get clean
 
-RUN adduser www
 ADD apache2.conf /etc/apache2/apache2.conf
 RUN a2enmod rewrite
 RUN a2enmod ssl
