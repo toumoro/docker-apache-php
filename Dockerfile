@@ -1,4 +1,4 @@
-FROM php:5.5.28-apache
+FROM php:7.1.0-apache
 # Install modules
 RUN apt-get update && apt-get install -y \
 	vim \
@@ -15,19 +15,14 @@ RUN apt-get update && apt-get install -y \
 	libxml2-dev \
 	libldap2-dev \
 	libapache2-mod-rpaf \
-        freetds-bin \
-        freetds-common \ 
-        freetds-dev \
     && ln -s /usr/lib/x86_64-linux-gnu/libsybdb.so /usr/lib/libsybdb.so \
-    && ln -s /usr/lib/x86_64-linux-gnu/libsybdb.a /usr/lib/libsybdb.a \
-    && docker-php-ext-configure mssql \
-    && docker-php-ext-install mssql \
-    && docker-php-ext-install iconv mcrypt mbstring soap \
-    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-    && docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu \
-    && docker-php-ext-install gd mysql pdo_mysql mysqli zip ldap \
-    && pecl install memcache \
-    && pecl install memcached \
+    && ln -s /usr/lib/x86_64-linux-gnu/libsybdb.a /usr/lib/libsybdb.a 
+RUN docker-php-ext-install iconv mcrypt mbstring soap 
+RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ 
+RUN docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu 
+RUN docker-php-ext-install gd pdo_mysql mysqli zip ldap 
+RUN pecl install memcache \
+#    && pecl install memcached \
     && pecl install xdebug \
     && apt-get clean
 
