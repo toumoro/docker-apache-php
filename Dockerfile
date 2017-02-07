@@ -18,6 +18,7 @@ RUN apt-get update && apt-get install -y \
         freetds-bin \
         freetds-common \ 
         freetds-dev \
+        locales \
     && ln -s /usr/lib/x86_64-linux-gnu/libsybdb.so /usr/lib/libsybdb.so \
     && ln -s /usr/lib/x86_64-linux-gnu/libsybdb.a /usr/lib/libsybdb.a \
     && docker-php-ext-configure mssql \
@@ -30,6 +31,11 @@ RUN apt-get update && apt-get install -y \
     && pecl install memcached \
     && pecl install xdebug \
     && apt-get clean
+
+# Setup locales
+RUN echo en_US.UTF-8 UTF-8 >> /etc/locale.gen \
+    && echo fr_CA.UTF-8 UTF-8 >> /etc/locale.gen
+RUN dpkg-reconfigure -f noninteractive locales
 
 ADD apache2.conf /etc/apache2/apache2.conf
 RUN a2enmod rewrite
