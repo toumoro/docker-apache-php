@@ -1,4 +1,6 @@
-FROM php:7.0.14-apache
+FROM php:7.0.15-apache
+
+
 # Install modules
 RUN apt-get update && apt-get install -y \
 	vim \
@@ -15,8 +17,15 @@ RUN apt-get update && apt-get install -y \
 	libxml2-dev \
 	libldap2-dev \
 	libapache2-mod-rpaf \
+        locales \
     && ln -s /usr/lib/x86_64-linux-gnu/libsybdb.so /usr/lib/libsybdb.so \
     && ln -s /usr/lib/x86_64-linux-gnu/libsybdb.a /usr/lib/libsybdb.a 
+
+# Setup locales
+RUN echo en_US.UTF-8 UTF-8 >> /etc/locale.gen \
+    && echo fr_CA.UTF-8 UTF-8 >> /etc/locale.gen
+RUN dpkg-reconfigure -f noninteractive locales
+
 RUN docker-php-ext-install iconv mcrypt mbstring soap 
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ 
 RUN docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu 
