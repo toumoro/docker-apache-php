@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y \
 	libxml2-dev \
 	libldap2-dev \
 	libapache2-mod-rpaf \
+        locales \
     && docker-php-ext-install iconv mcrypt mbstring soap \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu \
@@ -24,6 +25,11 @@ RUN apt-get update && apt-get install -y \
     && pecl install zendopcache \
     && pecl install xdebug-2.4.0 \
     && apt-get clean
+
+# Setup locales
+RUN echo en_US.UTF-8 UTF-8 >> /etc/locale.gen \
+    && echo fr_CA.UTF-8 UTF-8 >> /etc/locale.gen
+RUN dpkg-reconfigure -f noninteractive locales
 
 ADD apache2.conf /etc/apache2/apache2.conf
 RUN a2enmod rewrite
