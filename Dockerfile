@@ -1,4 +1,4 @@
-FROM php:7.1.4-apache
+FROM php:7.1.5-apache
 # Install modules
 RUN apt-get update && apt-get install -y \
 	vim \
@@ -21,8 +21,7 @@ RUN docker-php-ext-install iconv mcrypt mbstring soap
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ 
 RUN docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu 
 RUN docker-php-ext-install gd pdo_mysql mysqli zip ldap 
-RUN pecl install memcache \
-#    && pecl install memcached \
+RUN pecl install memcached \
     && pecl install xdebug \
     && apt-get clean
 
