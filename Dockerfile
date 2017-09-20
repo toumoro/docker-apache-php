@@ -28,6 +28,7 @@ RUN pecl install memcached \
 ADD apache2.conf /etc/apache2/apache2.conf
 RUN a2enmod rewrite
 RUN a2enmod ssl
+RUN a2enmod headers
 ADD php.ini /usr/local/etc/php/php.ini
 ADD run.sh /usr/local/bin/run.sh
 ADD ssl /etc/httpd/ssl
