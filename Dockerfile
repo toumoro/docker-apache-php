@@ -1,4 +1,4 @@
-FROM php:7.1.5-apache
+FROM php:7.1.9-apache
 # Install modules
 RUN apt-get update && apt-get install -y \
 	vim \
