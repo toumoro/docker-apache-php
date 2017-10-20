@@ -15,6 +15,11 @@ RUN apt-get update && apt-get install -y \
 	libxml2-dev \
 	libldap2-dev \
 	libapache2-mod-rpaf \
+        freetds-bin \
+        freetds-common \ 
+        freetds-dev \
+        locales \
+
     && ln -s /usr/lib/x86_64-linux-gnu/libsybdb.so /usr/lib/libsybdb.so \
     && ln -s /usr/lib/x86_64-linux-gnu/libsybdb.a /usr/lib/libsybdb.a 
 RUN docker-php-ext-install iconv mcrypt mbstring soap 
