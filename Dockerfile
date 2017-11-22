@@ -30,6 +30,8 @@ RUN pecl install memcached \
     && pecl install xdebug \
     && apt-get clean
 
+RUN cp /usr/share/i18n/SUPPORTED /etc/locale.gen && \
+    locale-gen
 ADD apache2.conf /etc/apache2/apache2.conf
 RUN a2enmod rewrite
 RUN a2enmod ssl
