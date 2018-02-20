@@ -21,7 +21,7 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu \
     && docker-php-ext-install gd mysql pdo_mysql mysqli zip ldap \
     && pecl install memcache \
-    && pecl install memcached \
+    && pecl install memcached-2.2.0 \
     && pecl install zendopcache \
     && pecl install xdebug-2.4.0 \
     && apt-get clean
