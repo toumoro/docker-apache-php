@@ -1,4 +1,4 @@
-FROM php:5.5.28-apache
+FROM php:5.6.38-apache
 # Install modules
 RUN apt-get update && apt-get install -y \
 	vim \
@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libmcrypt-dev \
-        libpng12-dev \
+        libpng-dev \
 	graphicsmagick \
 	graphicsmagick-imagemagick-compat \
 	mysql-client \
@@ -27,9 +27,6 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu \
     && docker-php-ext-install gd mysql pdo_mysql mysqli zip ldap \
-    && pecl install memcache \
-    && pecl install memcached \
-    && pecl install xdebug \
     && apt-get clean
 
 # Setup locales
