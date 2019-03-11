@@ -45,6 +45,10 @@ ADD php.ini /usr/local/etc/php/php.ini
 ADD run.sh /usr/local/bin/run.sh
 ADD ssl /etc/httpd/ssl
 RUN chmod +x /usr/local/bin/run.sh
+ADD composer-setup.sh /root/composer-setup.sh
+RUN chmod +x /root/composer-setup.sh
+WORKDIR /root
+RUN ./composer-setup.sh
 EXPOSE 80
 EXPOSE 443
 CMD ["/usr/local/bin/run.sh"]
