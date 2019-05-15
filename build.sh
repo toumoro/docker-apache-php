@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker build -t dockistry.toumoro.com:5000/toumoro/php:5.5.28-apache .
+docker build -t registry.gitlab.com/toumoro-closed/php:5.5.28-apache .
