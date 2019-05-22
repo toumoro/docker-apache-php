@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker build -t registry.gitlab.com/toumoro-closed/php:5.6.38-apache .
+docker build -t registry.gitlab.com/toumoro-closed/docker-apache-php:5.6.38-apache .
