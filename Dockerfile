@@ -38,9 +38,12 @@ RUN pecl install memcached \
 RUN cp /usr/share/i18n/SUPPORTED /etc/locale.gen && \
     locale-gen
 ADD apache2.conf /etc/apache2/apache2.conf
-RUN a2enmod rewrite
-RUN a2enmod ssl
-RUN a2enmod headers
+RUN a2enmod rewrite && \
+    a2enmod ssl && \
+    a2enmod headers && \
+    a2enmod expires && \
+    a2enmod remoteip
+
 ADD php.ini /usr/local/etc/php/php.ini
 ADD run.sh /usr/local/bin/run.sh
 ADD ssl /etc/httpd/ssl
