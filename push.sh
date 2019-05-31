@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker push registry.gitlab.com/toumoro-closed/php:7.2.14-apache
+docker push registry.gitlab.com/toumoro-closed/docker-apache-php:7.2.14-apache
