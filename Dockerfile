@@ -28,8 +28,8 @@ RUN apt-get update && apt-get install -y \
 RUN docker-php-ext-install iconv mbstring soap intl bcmath
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ 
 RUN docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu 
-RUN docker-php-ext-install gd pdo_mysql mysqli zip ldap 
-RUN pecl install mcrypt-1.0.2
+RUN docker-php-ext-install gd pdo_mysql mysqli zip ldap
+RUN pecl install mcrypt-1.0.2 memcached
 
 RUN cp /usr/share/i18n/SUPPORTED /etc/locale.gen && \
     locale-gen
