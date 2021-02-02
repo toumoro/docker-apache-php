@@ -1,4 +1,4 @@
-FROM php:7.2.14-apache
+FROM php:7.4-apache
 # Install modules
 RUN apt-get update && apt-get install -y \
 	vim \
@@ -11,7 +11,9 @@ RUN apt-get update && apt-get install -y \
         libpng-dev \
 	graphicsmagick \
 	graphicsmagick-imagemagick-compat \
-	mysql-client \
+#	mysql-client \
+        libonig-dev \
+        libzip-dev \
 	libmemcached-dev \
 	libxml2-dev \
 	libldap2-dev \
@@ -27,14 +29,23 @@ RUN apt-get update && apt-get install -y \
         && ln -s /usr/lib/x86_64-linux-gnu/libsybdb.a /usr/lib/libsybdb.a 
 
 RUN docker-php-ext-install iconv mbstring soap intl
-RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ 
+#RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
+RUN docker-php-ext-configure gd --with-jpeg=/usr/include/ --with-freetype=/usr/include/
+
+
+
+
+ 
 RUN docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu 
 RUN docker-php-ext-install gd pdo_mysql mysqli zip ldap
 RUN pecl install mcrypt memcached
 
 RUN cp /usr/share/i18n/SUPPORTED /etc/locale.gen && \
     locale-gen
-ADD apache2.conf /etc/apache2/apache2.conf
+ADD 000-default.conf /etc/apache2/sites-enabled/000-default.conf
+ADD default-ssl.conf /etc/apache2/sites-enabled/default-ssl.conf
+
+
 RUN a2enmod rewrite && \
     a2enmod ssl && \
     a2enmod headers && \
