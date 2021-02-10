@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y \
         libpng-dev \
 	graphicsmagick \
 	graphicsmagick-imagemagick-compat \
-#	mysql-client \
+	default-mysql-client \
         libonig-dev \
         libzip-dev \
 	libmemcached-dev \
@@ -28,7 +28,6 @@ RUN apt-get update && apt-get install -y \
         && ln -s /usr/lib/x86_64-linux-gnu/libsybdb.a /usr/lib/libsybdb.a 
 
 RUN docker-php-ext-install iconv mbstring soap intl
-#RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
 RUN docker-php-ext-configure gd --with-jpeg=/usr/include/ --with-freetype=/usr/include/
 
 
