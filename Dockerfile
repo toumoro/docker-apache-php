@@ -3,6 +3,7 @@ FROM php:7.4-apache
 RUN apt-get update && apt-get install -y \
 	vim \
 	wget \
+        git \
 	curl \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
@@ -36,7 +37,7 @@ RUN docker-php-ext-configure gd --with-jpeg=/usr/include/ --with-freetype=/usr/i
  
 RUN docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu 
 RUN docker-php-ext-install gd pdo_mysql mysqli zip ldap
-RUN pecl install mcrypt-1.0.2 memcached
+RUN pecl install mcrypt memcached
 
 RUN cp /usr/share/i18n/SUPPORTED /etc/locale.gen && \
     locale-gen
