@@ -1,4 +1,4 @@
-FROM php:7.2.14-apache
+FROM php:7.2.34-apache
 # Install modules
 RUN apt-get update && apt-get install -y \
 	vim \
@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y \
         libpng-dev \
 	graphicsmagick \
 	graphicsmagick-imagemagick-compat \
-	mysql-client \
+	mariadb-client \
 	libmemcached-dev \
 	libxml2-dev \
 	libldap2-dev \
@@ -31,8 +31,6 @@ RUN docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu
 RUN docker-php-ext-install gd pdo_mysql mysqli zip ldap 
 RUN pecl install memcached \
     && pecl install xdebug \
-    && pecl install sqlsrv \
-    && pecl install pdo_sqlsrv \
     && pecl install mcrypt-1.0.2
 
 RUN cp /usr/share/i18n/SUPPORTED /etc/locale.gen && \
