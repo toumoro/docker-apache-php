@@ -1,4 +1,4 @@
-FROM php:7.2.14-apache
+FROM php:7.2-apache
 # Install modules
 RUN apt-get update && apt-get install -y \
 	vim \
@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y \
         libpng-dev \
 	graphicsmagick \
 	graphicsmagick-imagemagick-compat \
-	mysql-client \
+	default-mysql-client \
 	libmemcached-dev \
 	libxml2-dev \
 	libldap2-dev \
@@ -21,9 +21,7 @@ RUN apt-get update && apt-get install -y \
         locales \
         unixodbc \
         unixodbc-dev \
-        && apt-get clean \
-        && ln -s /usr/lib/x86_64-linux-gnu/libsybdb.so /usr/lib/libsybdb.so \
-        && ln -s /usr/lib/x86_64-linux-gnu/libsybdb.a /usr/lib/libsybdb.a 
+    && apt-get clean
 
 RUN docker-php-ext-install iconv mbstring soap intl
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ 
@@ -31,8 +29,6 @@ RUN docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu
 RUN docker-php-ext-install gd pdo_mysql mysqli zip ldap 
 RUN pecl install memcached \
     && pecl install xdebug \
-    && pecl install sqlsrv \
-    && pecl install pdo_sqlsrv \
     && pecl install mcrypt-1.0.2
 
 RUN cp /usr/share/i18n/SUPPORTED /etc/locale.gen && \
