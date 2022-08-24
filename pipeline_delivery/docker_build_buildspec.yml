@@ -1,0 +1,38 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - aws --version
+      - DIR="./pipeline_delivery"
+      - echo Using Trivy to scanner containers images
+      - wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | apt-key add -
+      - echo deb https://aquasecurity.github.io/trivy-repo/deb bionic main | tee -a /etc/apt/sources.list.d/trivy.list
+      - apt-get update
+      - apt-get install -y trivy
+      - trivy -v
+      - docker pull hadolint/hadolint:v2.10.0
+      #- docker run --rm -i -v ${DIR}/.hadolint.yml:/.hadolint.yaml hadolint/hadolint:v2.10.0 hadolint -t warning - < ./Dockerfile
+      #- docker run --rm -i hadolint/hadolint:v2.10.0 hadolint -t warning - < ./Dockerfile
+      - docker run --rm -i hadolint/hadolint:v2.10.0 hadolint -t warning -t warning -t error < ./Dockerfile
+      - echo logging into docker
+      - docker login --username AWS -p $(aws ecr-public get-login-password --region $AWS_DEFAULT_REGION) public.ecr.aws
+#      - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
+      - ecr=$ecr_uri
+      - tag=latest
+      - echo $branch
+  build:
+    commands:
+      - echo Entered the post_build phase...
+      - echo Build completed on `date`
+      - docker build -t ${tag}:latest .
+      - docker tag $tag:latest $ecr:$branch
+      - docker push $ecr:$branch
+  post_build:
+    commands:
+      - trivy image $ecr:$branch
+      - trivy image -f json -o results.json --exit-code 0 --severity HIGH,MEDIUM,LOW $ecr:$branch
+      - cat results.json
+      - echo Report Sent to Security Hub on `date`
+      - export docker_img_name=$ecr
+      - export docker_tag=$branch
