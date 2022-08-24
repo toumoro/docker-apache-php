@@ -12,7 +12,7 @@ phases:
       - apt-get install -y trivy
       - trivy -v
       - docker pull hadolint/hadolint:v2.10.0
-      - docker run --rm -i -v ./hadolint.yml:/.hadolint.yaml hadolint/hadolint:v2.10.0 hadolint -t warning - < ./Dockerfile
+      #- docker run --rm -i -v ./hadolint.yml:/.hadolint.yaml hadolint/hadolint:v2.10.0 hadolint -t warning - < ./Dockerfile
       #- docker run --rm -i hadolint/hadolint:v2.10.0 hadolint -t warning - < ./Dockerfile
       - echo logging into docker
       - docker login --username AWS -p $(aws ecr-public get-login-password --region $AWS_DEFAULT_REGION) public.ecr.aws
