@@ -13,5 +13,6 @@ then
 fi
 
 # Lancement de Apache
-apache2-foreground
+#apache2-foreground
+/usr/sbin/apachectl -D FOREGROUND
 
