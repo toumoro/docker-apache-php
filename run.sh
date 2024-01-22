@@ -1,14 +1,6 @@
 #!/bin/bash
 
-if [ ! -z "$HOST_UID" ] & [ "$NO_UID_CHANGE" != true ]
-then
-  usermod -u $HOST_UID www-data
-  groupmod -g $HOST_UID www-data
-elif [ -z "$HOST_UID" ] & [ "$NO_UID_CHANGE" != true ]
-then
-  usermod -u 1000 www-data
-  groupmod -g 1000 www-data
-fi
+/usr/local/bin/configure.sh
 
 # Lancement de Apache
 #apache2-foreground
