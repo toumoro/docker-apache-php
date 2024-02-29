@@ -72,7 +72,7 @@ ADD composer-setup.sh /root/composer-setup.sh
 RUN chmod +x /root/composer-setup.sh
 WORKDIR /root
 RUN ./composer-setup.sh
-WORKDIR /var/www/html
+WORKDIR /var/www
 
 EXPOSE 80
 EXPOSE 443
