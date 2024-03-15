@@ -32,6 +32,7 @@ RUN apt-get update && apt-get install -y \
     php7.4-mbstring \
     php7.4-mysql \
     php7.4-mysqli \
+    php7.4-redis \
     php7.4-soap \
     php7.4-xml \
     php7.4-zip \
