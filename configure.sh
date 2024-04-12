@@ -22,7 +22,8 @@ then
 fi
 
 # Setup redis sessions
-if [-n $"TOU_REDIS_HOST" ]
+if [ -n "$TOU_REDIS_HOST" ]
+then
   echo session.save_handler = redis >> /usr/local/etc/php/php.ini
   echo session.save_path = "tcp://\${TYPO3_REDIS_HOST}:6379" >> /usr/local/etc/php/php.ini
-then
+fi
