@@ -57,11 +57,13 @@ RUN a2enmod rewrite && \
     a2enmod expires && \
     a2enmod remoteip
 
+ADD apache2.conf /etc/apache2/apache2.conf
 ADD 000-default.conf /etc/apache2/sites-enabled/000-default.conf
 ADD default-ssl.conf /etc/apache2/sites-enabled/default-ssl.conf
 ADD php.ini /etc/php/8.2/apache2/php.ini
 ADD php.ini /etc/php/8.2/cli/php.ini
 
+ADD php.ini /etc/php/7.4/cli/php.ini
 ADD run.sh /usr/local/bin/run.sh
 ADD ssl /etc/httpd/ssl
 RUN chmod +x /usr/local/bin/run.sh
