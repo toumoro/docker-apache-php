@@ -63,7 +63,7 @@ ADD 000-default.conf /etc/apache2/sites-enabled/000-default.conf
 ADD default-ssl.conf /etc/apache2/sites-enabled/default-ssl.conf
 ADD php.ini /etc/php/7.4/apache2/php.ini
 
-
+ADD apache2.conf /etc/apache2/apache2.conf
 ADD php.ini /etc/php/7.4/cli/php.ini
 ADD run.sh /usr/local/bin/run.sh
 ADD configure.sh /usr/local/bin/configure.sh
