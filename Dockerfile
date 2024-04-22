@@ -12,7 +12,6 @@ RUN apt-get update && apt-get install -y \
     graphicsmagick \
     libonig-dev \
     libzip-dev \
-    libmemcached-dev \
     libxml2-dev \
     libldap2-dev \
     libapache2-mod-rpaf \
@@ -23,11 +22,6 @@ RUN apt-get update && apt-get install -y \
     unixodbc \
     unixodbc-dev \
     default-mysql-client \
-    && apt-get clean \
-    && ln -s /usr/lib/x86_64-linux-gnu/libsybdb.so /usr/lib/libsybdb.so \
-    && ln -s /usr/lib/x86_64-linux-gnu/libsybdb.a /usr/lib/libsybdb.a 
-
-RUN apt-get install -y \
     php8.2 \
     php8.2-cli \
     php8.2-common \
@@ -43,13 +37,19 @@ RUN apt-get install -y \
     php8.2-zip \
     php-pear \
     php8.2-dev \
-    && pecl install memcached
-
-RUN echo "extension=memcached.so" > /etc/php/8.2/apache2/conf.d/20-memcached.ini && \
-    echo "extension=memcached.so" > /etc/php/8.2/cli/conf.d/20-memcached.ini
+    && apt-get clean \
+    && ln -s /usr/lib/x86_64-linux-gnu/libsybdb.so /usr/lib/libsybdb.so \
+    && ln -s /usr/lib/x86_64-linux-gnu/libsybdb.a /usr/lib/libsybdb.a
 
 RUN echo "ca_FR.UTF-8 UTF-8\nca_FR ISO-8859-15\nen_CA.UTF-8 UTF-8\nen_CA ISO-8859-1\nen_GB.UTF-8 UTF-8\nen_GB ISO-8859-1\nen_GB.ISO-8859-15 ISO-8859-15\nen_US.UTF-8 UTF-8\nen_US ISO-8859-1\nen_US.ISO-8859-15 ISO-8859-15\nfr_CA.UTF-8 UTF-8\nfr_CA ISO-8859-1\nfr_FR.UTF-8 UTF-8\nfr_FR ISO-8859-1\nfr_FR@euro ISO-8859-15" > /etc/locale.gen && \
     locale-gen
+
+# Generating locally trusted CA
+RUN curl -s https://api.github.com/repos/FiloSottile/mkcert/releases/latest| grep browser_download_url  | grep linux-amd64 | cut -d '"' -f 4 | wget -qi -
+RUN mv mkcert-v*-linux-amd64 mkcert
+RUN chmod a+x mkcert
+RUN mv mkcert /usr/local/bin
+RUN mkcert -install
 
 RUN a2enmod rewrite && \
     a2enmod ssl && \
