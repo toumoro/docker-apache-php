@@ -63,9 +63,10 @@ ADD default-ssl.conf /etc/apache2/sites-enabled/default-ssl.conf
 ADD php.ini /etc/php/8.2/apache2/php.ini
 ADD php.ini /etc/php/8.2/cli/php.ini
 
-ADD php.ini /etc/php/7.4/cli/php.ini
+ADD configure.sh /usr/local/bin/configure.sh
 ADD run.sh /usr/local/bin/run.sh
 ADD ssl /etc/httpd/ssl
+RUN chmod +x /usr/local/bin/configure.sh
 RUN chmod +x /usr/local/bin/run.sh
 ADD composer-setup.sh /root/composer-setup.sh
 RUN chmod +x /root/composer-setup.sh
