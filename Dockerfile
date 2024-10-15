@@ -60,6 +60,7 @@ RUN a2enmod rewrite && \
     a2enmod remoteip
 
 ADD 000-default.conf /etc/apache2/sites-enabled/000-default.conf
+ADD security.conf /etc/apache2/conf-enabled/security.conf
 ADD default-ssl.conf /etc/apache2/sites-enabled/default-ssl.conf
 ADD php.ini /etc/php/7.4/apache2/php.ini
 
