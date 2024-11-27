@@ -6,6 +6,7 @@ RUN apt-get update && apt-get install -y \
     wget \
     git \
     curl \
+    zip \
     libfreetype6-dev \
     libjpeg62-turbo-dev \
     libpng-dev \
