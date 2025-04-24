@@ -22,7 +22,7 @@ then
 fi
 
 # Setup redis sessions
-#if [-n $"TM_REDIS_HOST" ]
-  #echo session.save_handler = redis >> /usr/local/etc/php/php.ini
-  #echo session.save_path = "tcp://\${TM_REDIS_HOST}:6379" >> /usr/local/etc/php/php.ini
-#then
+if [-n $"TM_REDIS_HOST" ]
+  echo session.save_handler = redis | tee -a /etc/php/8.2/apache2/php.ini | tee -a /etc/php/8.2/cli/php.ini
+  echo session.save_path = "tcp://\${TM_REDIS_HOST}:6379" | tee -a /etc/php/8.2/apache2/php.ini | tee -a /etc/php/8.2/cli/php.ini
+then
