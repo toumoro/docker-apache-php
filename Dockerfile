@@ -44,6 +44,7 @@ RUN echo "ca_FR.UTF-8 UTF-8\nca_FR ISO-8859-15\nen_CA.UTF-8 UTF-8\nen_CA ISO-885
 
 ADD 000-default.conf /etc/apache2/sites-enabled/000-default.conf
 ADD default-ssl.conf /etc/apache2/sites-enabled/default-ssl.conf
+ADD security.conf /etc/apache2/conf-enabled/security.conf
 
 
 RUN a2enmod rewrite && \
